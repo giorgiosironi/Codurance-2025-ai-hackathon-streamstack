@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import TitleFrame from "./components/TitleFrame";
 
-interface title {
+export interface Title {
   show_id: string;
   type: string;
   title: string;
@@ -19,7 +19,7 @@ interface title {
 }
 
 function App() {
-  const [titles, setTitles] = useState<title[]>([]);
+  const [titles, setTitles] = useState<Title[]>([]);
   const [selected, setSelected] = useState<string>("");
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function App() {
           "Content-Type": "application/json",
         },
       });
-      const json = (await response.json()) as title[];
+      const json = (await response.json()) as Title[];
       if (response.ok) setTitles(json.slice(0, 200));
     };
     getTitles();
