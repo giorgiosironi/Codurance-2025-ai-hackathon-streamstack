@@ -10,5 +10,8 @@ async def root():
     return {"message": "Hello World"}
 
 @app.get("/titles")
-async def titles():
+async def titles(title: str = ''):
+    if title:
+        title_filter = NETFLIX_TITLES['title'].str.contains(title)
+        return NETFLIX_TITLES[title_filter].fillna('').to_dict('records')
     return NETFLIX_TITLES.fillna('').to_dict('records')

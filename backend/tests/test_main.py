@@ -26,3 +26,13 @@ def test_title_multiple_returned():
     assert isinstance(body, list)
 
     assert len(body) >= 100
+
+
+def test_title_filter():
+    response = client.get("/titles?title=California Heist")
+    assert response.status_code == 200
+    body = response.json()
+    assert isinstance(body, list)
+
+    assert len(body) == 1
+    assert body[0]['title'] == "Water & Power: A California Heist"
