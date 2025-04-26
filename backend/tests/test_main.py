@@ -67,3 +67,14 @@ def test_titles_sort_by_release_year():
     first = body[0]['release_year']
     last = body[-1]['release_year']
     assert last > first 
+
+
+def test_titles_sort_by_title():
+    response = client.get("/titles?sortBy=title")
+    assert response.status_code == 200
+    body = response.json()
+    assert isinstance(body, list)
+
+    first = body[0]['title']
+    last = body[-1]['title']
+    assert last > first 
