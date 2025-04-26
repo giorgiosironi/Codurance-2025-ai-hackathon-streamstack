@@ -12,7 +12,7 @@ async def root():
 
 
 @app.get("/titles")
-async def titles(title: str = "", director: str = ""):
+async def titles(title: str = "", director: str = "", sortBy: str = ""):
     chosen_filter = pd.Series(True, index=range(0, len(NETFLIX_TITLES)))
 
     if title:
@@ -21,4 +21,8 @@ async def titles(title: str = "", director: str = ""):
     if director:
         chosen_filter &= NETFLIX_TITLES["director"].fillna("").str.contains(director)
 
-    return NETFLIX_TITLES[chosen_filter].fillna("").to_dict("records")
+    selected = NETFLIX_TITLES[chosen_filter]
+    if sortBy:
+        selected = selected.sort_values(by=[sortBy])
+        
+    return selected.fillna("").to_dict("records")

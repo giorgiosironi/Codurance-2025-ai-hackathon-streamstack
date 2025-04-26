@@ -56,3 +56,14 @@ def test_titles_combined_title_director_filters():
     assert len(body) == 1
     assert body[0]['director'] == "Julien Leclercq"
     assert body[0]['title'] == "Ganglands"
+
+
+def test_titles_sort_by_release_year():
+    response = client.get("/titles?sortBy=release_year")
+    assert response.status_code == 200
+    body = response.json()
+    assert isinstance(body, list)
+
+    first = body[0]['release_year']
+    last = body[-1]['release_year']
+    assert last > first 
