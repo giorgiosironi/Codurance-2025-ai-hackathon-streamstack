@@ -3,7 +3,7 @@ import pandas as pd
 
 app = FastAPI()
 
-NETFLIX_TITLES = pd.read_csv('netflix_titles.csv').fillna('').to_dict('records')
+NETFLIX_TITLES = pd.read_csv('netflix_titles.csv')
 
 @app.get("/")
 async def root():
@@ -11,4 +11,4 @@ async def root():
 
 @app.get("/titles")
 async def titles():
-    return NETFLIX_TITLES
+    return NETFLIX_TITLES.fillna('').to_dict('records')
