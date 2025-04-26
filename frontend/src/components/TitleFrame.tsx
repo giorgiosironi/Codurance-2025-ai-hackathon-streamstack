@@ -1,7 +1,7 @@
 interface TitleFrameProps {
   title: string;
   type: string;
-  year: number;
+  year: string;
   imgUrl: string;
 }
 
