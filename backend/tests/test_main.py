@@ -17,7 +17,7 @@ def test_titles():
     assert "release_year" in first_title.keys()
 
 
-def test_title_multiple_returned():
+def test_titles_multiple_returned():
     """Test the data has more than many titles
     ie using real data"""
     response = client.get("/titles")
@@ -28,7 +28,7 @@ def test_title_multiple_returned():
     assert len(body) >= 100
 
 
-def test_title_filter():
+def test_titles_title_filter():
     response = client.get("/titles?title=California Heist")
     assert response.status_code == 200
     body = response.json()
@@ -36,3 +36,13 @@ def test_title_filter():
 
     assert len(body) == 1
     assert body[0]['title'] == "Water & Power: A California Heist"
+
+
+def test_titles_director_filter():
+    response = client.get("/titles?director=Leclercq")
+    assert response.status_code == 200
+    body = response.json()
+    assert isinstance(body, list)
+
+    assert len(body) == 3
+    assert body[0]['director'] == "Julien Leclercq"
