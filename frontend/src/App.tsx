@@ -29,26 +29,28 @@ function App() {
         },
       });
       const json = (await response.json()) as title[];
-      if (response.ok) setTitles(json);
+      if (response.ok) setTitles(json.slice(0, 200));
     };
     getTitles();
   }, [titles]);
 
   return (
-    <div className="bg-stone-950 h-screen w-full flex flex-col justify-start items-center">
+    <div className="bg-stone-900 h-screen w-full flex flex-col justify-start items-center">
       <h1 className="text-5xl text-white p-24">Stream Stack</h1>
       <div className="text-white p-8 flex flex-row items-center justify-center">
         Filter Bar
       </div>
-      {titles.map((title, index) => (
-        <TitleFrame
-          key={index}
-          title={title.title}
-          type={title.type}
-          year={title.release_year}
-          imgUrl="https://i.ytimg.com/vi/jan5CFWs9ic/maxresdefault.jpg"
-        />
-      ))}
+      <div className="w-7/8 h-full grid grid-cols-5 overflow-scroll">
+        {titles.map((title, index) => (
+          <TitleFrame
+            key={index}
+            title={title.title}
+            type={title.type}
+            year={title.release_year}
+            imgUrl="https://i.ytimg.com/vi/jan5CFWs9ic/maxresdefault.jpg"
+          />
+        ))}
+      </div>
     </div>
   );
 }
