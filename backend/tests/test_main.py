@@ -46,3 +46,13 @@ def test_titles_director_filter():
 
     assert len(body) == 3
     assert body[0]['director'] == "Julien Leclercq"
+
+def test_titles_combined_title_director_filters():
+    response = client.get("/titles?director=Leclercq&title=angl")
+    assert response.status_code == 200
+    body = response.json()
+    assert isinstance(body, list)
+
+    assert len(body) == 1
+    assert body[0]['director'] == "Julien Leclercq"
+    assert body[0]['title'] == "Ganglands"

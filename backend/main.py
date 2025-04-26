@@ -16,9 +16,9 @@ async def titles(title: str = "", director: str = ""):
     chosen_filter = pd.Series(True, index=range(0, len(NETFLIX_TITLES)))
 
     if title:
-        chosen_filter = NETFLIX_TITLES["title"].str.contains(title)
+        chosen_filter &= NETFLIX_TITLES["title"].str.contains(title)
 
     if director:
-        chosen_filter = NETFLIX_TITLES["director"].fillna("").str.contains(director)
+        chosen_filter &= NETFLIX_TITLES["director"].fillna("").str.contains(director)
 
     return NETFLIX_TITLES[chosen_filter].fillna("").to_dict("records")
