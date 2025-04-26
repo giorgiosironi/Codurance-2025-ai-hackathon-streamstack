@@ -3,11 +3,15 @@ interface TitleFrameProps {
   type: string;
   year: string;
   imgUrl: string;
+  onClick: () => void;
 }
 
 const TitleFrame = (props: TitleFrameProps) => {
   return (
-    <div className="w-96 h-80 flex flex-col items-center shadow-[3px_3px_15px_4px_rgba(100,_100,_111,_0.2)] cursor-pointer text-white hover:scale-105 active:scale-95 transform transition duration-800 ease-in-out m-8">
+    <div
+      className="w-96 h-80 flex flex-col items-center shadow-[3px_3px_15px_4px_rgba(100,_100,_111,_0.2)] cursor-pointer text-white hover:scale-105 active:scale-95 transform transition duration-800 ease-in-out m-8"
+      onClick={props.onClick}
+    >
       <img
         src={props.imgUrl}
         alt="title frame image"

@@ -20,6 +20,8 @@ interface title {
 
 function App() {
   const [titles, setTitles] = useState<title[]>([]);
+  const [selected, setSelected] = useState<string>("");
+
   useEffect(() => {
     const getTitles = async () => {
       const response = await fetch("http://127.0.0.1:8000/titles", {
@@ -38,7 +40,7 @@ function App() {
     <div className="bg-stone-900 h-screen w-full flex flex-col justify-start items-center">
       <h1 className="text-5xl text-white p-24">Stream Stack</h1>
       <div className="text-white p-8 flex flex-row items-center justify-center">
-        Filter Bar
+        Filter Bar {selected ? `Selected Film: ${selected}` : ""}
       </div>
       <div className="w-7/8 h-full grid grid-cols-5 overflow-scroll">
         {titles.map((title, index) => (
@@ -47,6 +49,7 @@ function App() {
             title={title.title}
             type={title.type}
             year={title.release_year}
+            onClick={() => setSelected(title.title)}
             imgUrl="https://i.ytimg.com/vi/jan5CFWs9ic/maxresdefault.jpg"
           />
         ))}
