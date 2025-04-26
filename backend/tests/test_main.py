@@ -12,6 +12,17 @@ def test_titles():
     assert isinstance(body, list)
     first_title = body[0]
     assert isinstance(first_title, dict)
-    assert 'title' in first_title.keys()
-    assert 'type' in first_title.keys()
-    assert 'release_year' in first_title.keys()
+    assert "title" in first_title.keys()
+    assert "type" in first_title.keys()
+    assert "release_year" in first_title.keys()
+
+
+def test_title_multiple_returned():
+    """Test the data has more than many titles
+    ie using real data"""
+    response = client.get("/titles")
+    assert response.status_code == 200
+    body = response.json()
+    assert isinstance(body, list)
+
+    assert len(body) >= 100
